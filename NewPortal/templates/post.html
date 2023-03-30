@@ -1,0 +1,25 @@
+{% extends 'flatpages/default.html' %}
+
+{%block title %}
+Post
+{% endblock title %}
+
+{% block content %}
+        <table>
+            <tr>
+                <td><h4>Заголовок</h4></td>
+                <td><h4>Дата публикации</h4></td>
+                <td><h4>Статья</h4></td>
+                    <tr></tr>
+                <td>{{ post.header|truncatechars:15 }}</td>
+                <td>{{ post.time_post }}</td>
+                <td>{{ post.text }}</td>
+            </tr>
+        </table>
+    {% if user not in subscribers %}
+    <form action="{% url 'categories/<int:pk>/subscribe' %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подписаться"/>
+    </form>
+    {% endif %}
+{% endblock content %}
